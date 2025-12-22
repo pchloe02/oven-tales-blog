@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap");
+@font-face {
+  font-family: "Alegreya Sans";
+  src: url("./assets/fonts/AlegreyaSans-Bold.ttf") format("truetype");
+}
+
 :root {
   --font-primary: "Lora", serif;
   --font-title: "Playfair Display", serif;

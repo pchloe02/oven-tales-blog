@@ -4,12 +4,15 @@ import { connectDB } from './config/database.js';
 import articleRoutes from './routes/articles.js';
 import commentRoutes from './routes/comments.js';
 import authRoutes from './routes/auth.js';
+import cors from 'cors';
 
 dotenv.config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {

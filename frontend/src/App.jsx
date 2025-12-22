@@ -1,17 +1,23 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.css";
-import { About, Recipes, Home } from "./pages";
+import { About, Recipes, Home, Login, Register } from "./pages";
+import { Navbar } from "./components";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/recipes" element={<Recipes />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" cta element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 };
 

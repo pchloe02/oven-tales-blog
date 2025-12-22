@@ -1,10 +1,8 @@
+import React, { useEffect } from "react";
+import Card from "../../components/card/index.jsx";
+
 const Home = () => {
-  return (
-    <>
-      <h1>Welcome to Oven Tales !</h1>
-      <p>All the recipes you need are here :) </p>
-    </>
-  );
+  return <Card />;
 };
 
 export default Home;

@@ -28,5 +28,35 @@ export const mockRecettes = [
         "vues": 128,
         "createdAt": "2025-12-21T18:20:00.000Z",
         "updatedAt": "2025-12-21T18:20:00.000Z"
-    }
+    },
+    {
+        "_id": "67685f1a2b1e4b0f5a2c8da0",
+        "titre": "Velouté de Châtaignes aux Éclats de Noisettes",
+        "contenu": "Faire revenir des échalotes, ajouter les châtaignes cuites et du bouillon de volaille. Mixer finement avec une touche de crème liquide. Servir chaud avec des noisettes torréfiées concassées pour le croquant.",
+        "auteur": {
+            "_id": "6931880b43cd31ce44dd7061",
+            "name": "admin02"
+        },
+        "categorie": "Entrée",
+        "publie": true,
+        "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd",
+        "vues": 85,
+        "createdAt": "2025-12-22T11:15:00.000Z",
+        "updatedAt": "2025-12-22T11:15:00.000Z"
+    },
+    // {
+    //     "_id": "67685f1a2b1e4b0f5a2c8da1",
+    //     "titre": "Pain d'Épices Moelleux à l'Orange",
+    //     "contenu": "Mélanger miel chaud, farine de seigle et épices (cannelle, badiane, gingembre). Ajouter des zestes d'oranges confites. Cuire à 150°C pendant 1 heure pour garder tout le moelleux. Idéal avec le foie gras.",
+    //     "auteur": {
+    //         "_id": "6931880b43cd31ce44dd7061",
+    //         "name": "admin02"
+    //     },
+    //     "categorie": "Accompagnement",
+    //     "publie": true,
+    //     "image": "https://images.unsplash.com/photo-1511018556340-d16986a1c194",
+    //     "vues": 210,
+    //     "createdAt": "2025-12-22T15:45:00.000Z",
+    //     "updatedAt": "2025-12-22T16:00:00.000Z"
+    // }
 ]

@@ -9,11 +9,14 @@ const NavbarContainer = styled.nav`
     left: 0;
     right: 0;
     background-color: ${colors.background};
-    padding: 1rem 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 128px;
+    height: 100px;
     border-bottom: 1px solid ${colors.border};
 `;
 
@@ -34,4 +37,15 @@ const NavItems = styled.div`
     }
 `;
 
-export { NavbarContainer, NavItems };
+const ButtonsSection = styled.div`
+    display: flex;
+    gap: 16px;
+`;
+
+const LeftSideNav = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 30px;
+`
+
+export { NavbarContainer, NavItems, ButtonsSection, LeftSideNav };

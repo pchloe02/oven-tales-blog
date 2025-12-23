@@ -8,5 +8,6 @@ export const colors = {
 };
 
 export const sizes = {
-    subtitle: "22pt",
+    subtitle: "24px",
+
 }

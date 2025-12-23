@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { NavbarContainer, NavItems } from "./styled";
+import {
+  NavbarContainer,
+  NavItems,
+  ButtonsSection,
+  LeftSideNav,
+} from "./styled";
+import { Button } from "../../components/index.js";
 import Logo from "../Logo";
 
 const Navbar = () => {
@@ -17,19 +23,23 @@ const Navbar = () => {
           <Logo />
         </Link>
       </div>
-      <NavItems>
-        {navItems.map((item) => (
-          <Link key={item.path} to={item.path} className="nav-link">
-            {item.label}
+      <LeftSideNav>
+        <NavItems>
+          {navItems.map((item) => (
+            <Link key={item.path} to={item.path} className="nav-link">
+              {item.label}
+            </Link>
+          ))}
+        </NavItems>
+        <ButtonsSection>
+          <Link key="/login" to="/login">
+            <Button>Login</Button>
           </Link>
-        ))}
-      </NavItems>
-      <Link key="/login" to="/login">
-        <button>Login</button>
-      </Link>
-      <Link key="/register" to="/register">
-        <button>Register</button>
-      </Link>
+          <Link key="/register" to="/register">
+            <Button>Register</Button>
+          </Link>
+        </ButtonsSection>
+      </LeftSideNav>
     </NavbarContainer>
   );
 };

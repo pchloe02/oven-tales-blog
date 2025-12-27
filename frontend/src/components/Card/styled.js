@@ -33,7 +33,6 @@ export const ImgFrame = styled.div`
 `
 
 export const CardsWrapper = styled.div`
-    margin-top: 150px;
     display: flex;
     gap: 16px;
 `;

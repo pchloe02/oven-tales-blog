@@ -1,6 +1,8 @@
 import User from '../models/User.js';
+import Article from '../models/Article.js';
 import AppError from '../utils/AppError.js';
 import { catchAsync } from '../middleware/errorHandler.js';
+import QueryFeatures from '../utils/queryFeatures.js';
 
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
@@ -78,4 +80,21 @@ const updatePassword = catchAsync(async (req, res, next) => {
     });
 });
 
-export { getMe, updateMe, updatePassword };
+const getMyArticles = catchAsync(async (req, res, next) => {
+    const features = new QueryFeatures(Article.find({ auteur: req.user._id }), req.query)
+        .search()
+        .sort()
+        .limitFields()
+        .paginate();
+
+    const totalCount = await Article.countDocuments({ auteur: req.user._id });
+    const articles = await features.query.populate('auteur', 'name');
+    const pagination = features.getPaginationInfo(totalCount);
+
+    const response = { success: true, count: articles.length, totalCount, data: articles };
+    if (pagination) response.pagination = pagination;
+
+    res.status(200).json(response);
+});
+
+export { getMe, updateMe, updatePassword, getMyArticles };

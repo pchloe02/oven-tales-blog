@@ -1,9 +1,12 @@
 import { useState, useCallback } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function useRegister() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const auth = useAuth();
 
   const register = useCallback(
     async (payload, options = { autoLogin: true }) => {
@@ -11,28 +14,29 @@ export default function useRegister() {
       setError(null);
       try {
         const base = import.meta.env.VITE_API_URL || "";
-        const res = await fetch(`${base}/api/auth/register`, {
-          method: "POST",
+        const res = await axios.post(`${base}/api/auth/register`, payload, {
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
         });
-        const json = await res.json();
-        if (!res.ok) {
-          const message =
-            json.message || json.error || "Error during registration";
-          throw new Error(message);
-        }
+        const json = res.data;
         setData(json);
         if (options.autoLogin && json.token) {
           try {
-            localStorage.setItem("token", json.token);
+            auth.login({ token: json.token, user: json.data?.user || null });
           } catch (e) {
-            // ignore localStorage errors
+            try {
+              localStorage.setItem("token", json.token);
+            } catch (err) {
+              // ignore localStorage errors
+            }
           }
         }
         return json;
       } catch (err) {
-        setError(err.message || "Error");
+        const message =
+          err.response?.data?.message ||
+          err.message ||
+          "Error during registration";
+        setError(message);
         throw err;
       } finally {
         setLoading(false);

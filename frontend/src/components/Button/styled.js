@@ -12,6 +12,11 @@ const StyledButton = styled.button`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        filter: grayscale(10%);
+    }
 `;
 
 export default StyledButton;

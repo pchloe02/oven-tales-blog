@@ -8,6 +8,7 @@ export const colors = {
 
     white: "#FFFFFF",
     shadow: "#cab6aa31",
+    error: "#FF0000",
 
 };
 

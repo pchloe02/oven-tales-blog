@@ -1,13 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   NavbarContainer,
   NavItems,
   ButtonsSection,
   LeftSideNav,
 } from "./styled";
-import { Button } from "../../components/index.js";
+import { Button, Dropdown } from "../../components/index.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 import Logo from "../Logo";
+import ProfileIcon from "../Icons/ProfileIcon.jsx";
+import SearchIcon from "../Icons/SearchIcon.jsx";
 
 const Navbar = () => {
   const navItems = [
@@ -15,6 +18,14 @@ const Navbar = () => {
     { label: "About", path: "/about" },
     { label: "Recipes", path: "/recipes" },
   ];
+
+  const { token, user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <NavbarContainer>
@@ -32,12 +43,28 @@ const Navbar = () => {
           ))}
         </NavItems>
         <ButtonsSection>
-          <Link key="/login" to="/login">
-            <Button>Login</Button>
-          </Link>
-          <Link key="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
+          <SearchIcon />
+          {!token ? (
+            <>
+              <Link key="/login" to="/login">
+                <Button>Login</Button>
+              </Link>
+              <Link key="/register" to="/register">
+                <Button>Register</Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Dropdown
+                label={<ProfileIcon />}
+                items={[
+                  { label: "Profile", to: "/profile" },
+                  { label: "Logout", action: handleLogout },
+                ]}
+              />
+              {/* <Button   onClick={handleLogout}>Logout</Button> */}
+            </>
+          )}
         </ButtonsSection>
       </LeftSideNav>
     </NavbarContainer>

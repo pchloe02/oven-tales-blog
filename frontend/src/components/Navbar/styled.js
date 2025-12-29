@@ -39,6 +39,7 @@ const NavItems = styled.div`
 
 const ButtonsSection = styled.div`
     display: flex;
+    align-items: center;
     gap: 16px;
 `;
 

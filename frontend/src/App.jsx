@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.css";
-import { About, Recipes, Home, Login, Register } from "./pages";
+import { About, Recipes, Home, Login, Register, Profile } from "./pages";
 import { Navbar } from "./components";
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" cta element={<Navigate to="/" replace />} />
       </Routes>
     </>

@@ -1,19 +1,27 @@
 import React from "react";
 import { useGetMyArticles } from "../../hooks/useGetMyArticles";
 import { useAuth } from "../../context/AuthContext.jsx";
-
+import { Card } from "../../components/index.js";
+import {
+  StyledProfile,
+  InfoSection,
+  InfoContainer,
+  StyleTitle,
+  StyleText,
+} from "./styled.js";
+import SkeletonCard from "../../components/Skeleton/SkeletonCard.jsx";
 const Profile = () => {
   const { user, loading: userLoading } = useAuth();
   const { myArticles, loading: myArticlesLoading, error } = useGetMyArticles();
-  console.log("My Articles:", myArticles);
+  const myArticlesCount = myArticles.length;
   return (
-    <>
-      <h2>Informations</h2>
-      {userLoading ? (
-        <p>Loading user...</p>
-      ) : (
-        user && (
-          <div>
+    <StyledProfile>
+      <InfoSection>
+        <StyleTitle>Informations</StyleTitle>
+        {userLoading ? (
+          <p>Loading user...</p>
+        ) : (
+          <InfoContainer>
             <p>
               <strong>Name:</strong> {user.name}
             </p>
@@ -26,63 +34,30 @@ const Profile = () => {
                 {new Date(user.createdAt).toLocaleDateString()}
               </p>
             )}
-          </div>
-        )
-      )}
-      <h2>Articles</h2>
+          </InfoContainer>
+        )}
+      </InfoSection>
+      <StyleTitle>Mes publications</StyleTitle>
       {myArticlesLoading ? (
-        <p>Loading publications...</p>
+        <div style={{ display: "flex" }}>
+          {[0, 1].map((i) => (
+            <SkeletonCard key={i} keyIdx={i} />
+          ))}
+        </div>
       ) : (
         (() => {
-          const getId = (a) => a._id || a.id;
-          const getTitle = (a) => a.title || a.titre || a.resume || "Untitled";
-          const getContent = (a) => a.content || a.contenu || a.resume || "";
-          const isPublished = (a) =>
-            typeof a.published !== "undefined" ? a.published : !!a.publie;
-          const getAuthorName = (a) =>
-            a.author?.name || a.auteur?.name || a.auteur?.nom || "";
-
-          const published = myArticles?.filter((a) => isPublished(a)) || [];
-          const drafts = myArticles?.filter((a) => !isPublished(a)) || [];
           return (
             <>
-              <h3>Published</h3>
-              {published.length > 0 ? (
-                <ul>
-                  {published.map((article) => (
-                    <li key={getId(article)}>
-                      <h3>{getTitle(article)}</h3>
-                      <p>{getContent(article)}</p>
-                      <p>
-                        Status: {isPublished(article) ? "Published" : "Draft"}
-                      </p>
-                      {getAuthorName(article) && (
-                        <p>Author: {getAuthorName(article)}</p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No publications found.</p>
-              )}
-              {drafts.length > 0 && (
-                <>
-                  <h3>Drafts</h3>
-                  <ul>
-                    {drafts.map((article) => (
-                      <li key={getId(article)}>
-                        <h3>{getTitle(article)}</h3>
-                        <p>{getContent(article)}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
+              <Card
+                articles={myArticles}
+                loading={myArticlesLoading}
+                error={error}
+              />
             </>
           );
         })()
       )}
-    </>
+    </StyledProfile>
   );
 };
 

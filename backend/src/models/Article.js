@@ -24,10 +24,10 @@ const articleSchema = new mongoose.Schema(
         },
 
         // Statut de publication
-        publie: {
-            type: Boolean,             // Type : vrai ou faux
-            default: false             // Par défaut, l'article n'est pas publié
-        },
+        // publie: {
+        //     type: Boolean,             // Type : vrai ou faux
+        //     default: false             // Par défaut, l'article n'est pas publié
+        // },
 
         // Catégorie de l'article (optionnel)
         categorie: {
@@ -65,42 +65,27 @@ const articleSchema = new mongoose.Schema(
 );
 
 
-articleSchema.methods.publier = function () {
-    this.publie = true;
-    return this.save();
-};
-
-
-articleSchema.methods.depublier = function () {
-    this.publie = false;
-    return this.save();
-};
-
 articleSchema.methods.incrementerVues = function () {
     this.vues += 1;
     return this.save();
 };
 
 
-articleSchema.statics.findPublies = function () {
-    return this.find({ publie: true }).sort({ createdAt: -1 });
-};
-
-articleSchema.statics.findByCategorie = function (categorie) {
-    return this.find({ categorie, publie: true }).sort({ createdAt: -1 });
+articleSchema.statics.findByCategory = function (categorie) {
+    return this.find({ categorie }).sort({ createdAt: -1 });
 };
 
 
 articleSchema.virtual('resume').get(function () {
-    if (this.contenu.length <= 150) {
+    if (this.contenu?.length <= 150) {
         return this.contenu;
     }
-    return this.contenu.substring(0, 150) + '...';
+    return this.contenu?.substring(0, 150) + '...';
 });
 
 
 articleSchema.virtual('dureeIecture').get(function () {
-    const mots = this.contenu.split(' ').length;
+    const mots = this.contenu?.split(' ').length;
     const minutes = Math.ceil(mots / 200);
     return minutes;
 });

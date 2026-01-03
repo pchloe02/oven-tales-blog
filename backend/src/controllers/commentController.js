@@ -5,19 +5,19 @@ import { catchAsync } from '../middleware/errorHandler.js';
 
 const createComment = catchAsync(async (req, res, next) => {
     const { articleId } = req.params;
-    const { content, author, email } = req.body;
+    const { contenu, auteur, email } = req.body;
 
     if (!articleId) {
         return next(new AppError('Article manquant', 400));
     }
 
-    if (!content || content.trim() === "") {
+    if (!contenu || contenu.trim() === "") {
         return next(new AppError("Le contenu du commentaire est requis", 400));
     }
 
     const comment = new Comment({
-        content,
-        author,
+        contenu,
+        auteur,
         email,
         article: articleId
     });
@@ -93,15 +93,15 @@ const deleteComment = catchAsync(async (req, res, next) => {
 
 const updateComment = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    const { content } = req.body;
+    const { contenu } = req.body;
 
-    if (content === undefined || (typeof content === 'string' && content.trim() === '')) {
+    if (contenu === undefined || (typeof contenu === 'string' && contenu.trim() === '')) {
         return next(new AppError("Le contenu du commentaire est requis", 400));
     }
 
     const comment = await Comment.findByIdAndUpdate(
         id,
-        { content },
+        { contenu },
         { new: true, runValidators: true }
     );
 

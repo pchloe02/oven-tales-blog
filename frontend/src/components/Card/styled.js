@@ -39,6 +39,7 @@ export const CardsWrapper = styled.div`
 
 export const InfoContainer = styled.div`
     text-align: left;
+    margin-top: 12px;
 `
 
 export const Date = styled.span`

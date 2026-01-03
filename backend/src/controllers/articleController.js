@@ -111,45 +111,11 @@ const deleteArticle = catchAsync(async (req, res, next) => {
         data: article
     });
 });
-const getPublishedArticles = catchAsync(async (req, res, next) => {
-    const articles = await Article.findPublished();
-
-    res.status(200).json({
-        success: true,
-        count: articles.length,
-        data: articles
-    });
-});
-
-
-const publishArticle = catchAsync(async (req, res, next) => {
-    const { id } = req.params;
-
-    const article = await Article.findById(id);
-
-    if (!article) {
-        return next(new AppError('Article non trouvé', 404));
-    }
-
-    if (article.auteur.toString() !== req.user._id.toString()) {
-        return next(new AppError("You are not authorized to publish this article", 403));
-    }
-
-    await article.publish();
-
-    res.status(200).json({
-        success: true,
-        message: 'Article published successfully',
-        data: article
-    });
-});
-
 export {
     createArticle,
     getAllArticles,
     getArticleById,
     updateArticle,
     deleteArticle,
-    getPublishedArticles,
-    publishArticle
+
 };

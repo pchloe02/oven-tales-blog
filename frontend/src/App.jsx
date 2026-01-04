@@ -10,6 +10,7 @@ import {
   Profile,
   CreateArticle,
 } from "./pages";
+import ArticleDetail from "./pages/recipes/id";
 import { Navbar } from "./components";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/recipes/:id" element={<ArticleDetail />} />
         <Route path="*" cta element={<Navigate to="/" replace />} />
       </Routes>
     </>

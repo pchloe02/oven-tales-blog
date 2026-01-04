@@ -39,8 +39,8 @@ const Profile = () => {
       </InfoSection>
       <StyleTitle>Mes publications</StyleTitle>
       {myArticlesLoading ? (
-        <div style={{ display: "flex" }}>
-          {[0, 1].map((i) => (
+        <div style={{ display: "flex", gap: "20px" }}>
+          {[0, 1, 2].map((i) => (
             <SkeletonCard key={i} keyIdx={i} />
           ))}
         </div>

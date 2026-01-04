@@ -17,6 +17,7 @@ const Navbar = () => {
     { label: "Home", path: "/" || "/home" },
     { label: "About", path: "/about" },
     { label: "Recipes", path: "/recipes" },
+    { label: "Publier", path: "/publish" },
   ];
 
   const { token, user, logout } = useAuth();

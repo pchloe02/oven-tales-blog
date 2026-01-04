@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContainer, ImgFrame, InfoContainer, Date } from "../Card/styled";
+import { CardContainer, ImgFrame, InfoContainer, Date } from "../card/styled";
 import "./skeleton.css";
 
 const SkeletonCard = ({ keyIdx }) => (

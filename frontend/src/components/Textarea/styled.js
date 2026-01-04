@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import { colors } from "../../utils/theme";
 
-const InputStyled = styled.input`
+const Textarea = styled.textarea`
 	width: 100%;
 	box-sizing: border-box;
-	padding: 0.75rem 1rem;
-	font-size: 1rem;
-	line-height: 1.25;
-	font-family: inherit;
-	border-radius: 30px;
+	min-height: 400px;
 	border: 1px solid ${colors.border};
-	background: ${colors.white};
+	border-radius: 18px;
 
+	font-size: 1rem;
+	line-height: 1.5;
+	padding: 1rem 1rem;
+	font-family: inherit;
 	box-shadow: 0 1px 2px ${colors.shadow};
 	outline: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+	resize: none;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	white-space: pre-wrap;
 	overflow-x: hidden;
 
-	&::placeholder {
+    &::placeholder {
 		color: ${colors.borderDarker};
 		font-weight: 400;
 	}
@@ -27,7 +31,6 @@ const InputStyled = styled.input`
 		border-color: ${colors.accent};
 		box-shadow: 0 6px 18px ${colors.shadow}; ;
 	}
+	`
 
-`;
-
-export { InputStyled };
+export { Textarea };

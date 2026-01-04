@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import imgPlaceholder from "../../assets/placeholder-img.jpg";
 
 import {
@@ -12,6 +13,7 @@ import { mockRecettes } from "../../utils/mock.js";
 import SkeletonCard from "../Skeleton/SkeletonCard";
 
 const Card = ({ articles, loading, error }) => {
+  const navigate = useNavigate();
   const formatDate = (value) => {
     if (!value) return "";
     const d = new globalThis.Date(value);
@@ -27,7 +29,12 @@ const Card = ({ articles, loading, error }) => {
   const mapArticles = () => {
     if (!Array.isArray(articles)) return null;
     return articles.map((article) => (
-      <CardContainer key={article._id || article.id}>
+      <CardContainer
+        key={article._id || article.id}
+        onClick={() => navigate(`/recipes/${article._id || article.id}`)}
+        role="link"
+        tabIndex={0}
+      >
         <ImgFrame>
           <img src={article.image || imgPlaceholder} />
         </ImgFrame>

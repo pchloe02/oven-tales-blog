@@ -9,5 +9,6 @@ import ArticleContent from "./ArticleContent";
 import Tag from "./Tag";
 import Select from "./Select";
 import CommentsList from "./CommentsList/CommentsList.jsx";
+import Footer from "./Footer";
 
-export { Navbar, Button, Card, Input, Dropdown, Textarea, SkeletonCard, ArticleContent, Tag, Select, CommentsList };
+export { Navbar, Button, Card, Input, Dropdown, Textarea, SkeletonCard, ArticleContent, Tag, Select, CommentsList, Footer };

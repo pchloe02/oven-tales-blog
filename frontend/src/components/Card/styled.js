@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-    
     padding: 0;
-    margin: 16px;
-    width: 450px;
-    height: 745px;
-    min-height: 745px;
-    max-height: 745px;
+    margin: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
-
+    min-height: 320px;
+    background: transparent;
 
     h2 {
         margin-top: 12px;
@@ -38,8 +33,10 @@ export const ImgFrame = styled.div`
 `
 
 export const CardsWrapper = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+    align-items: start;
 `;
 
 export const InfoContainer = styled.div`

@@ -1,5 +1,8 @@
-import React, { useEffect, useMemo } from "react";
-import { HomeContainer } from "./styled.js";
+import React, { useMemo } from "react";
+import { HomeContainer, Banner } from "./styled.js";
+
+const bannerImg =
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80";
 import { Card } from "../../components/index.js";
 import { useArticles } from "../../hooks/useArticles.jsx";
 
@@ -15,7 +18,8 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <h2>Latest recipes</h2>
+      <Banner bg={bannerImg} />
+      <h2>Dernière recette publiée</h2>
       <Card articles={latestArticles} loading={loading} error={error} />
     </HomeContainer>
   );

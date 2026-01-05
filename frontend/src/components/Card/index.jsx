@@ -36,9 +36,6 @@ const Card = ({ articles, loading, error }) => {
         role="link"
         tabIndex={0}
       >
-        <ImgFrame>
-          <img src={article.image || imgPlaceholder} />
-        </ImgFrame>
         <InfoContainer>
           <div
             style={{

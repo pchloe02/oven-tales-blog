@@ -3,4 +3,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }

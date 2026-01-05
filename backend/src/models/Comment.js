@@ -15,6 +15,11 @@ const commentSchema = new mongoose.Schema(
       trim: true,
       maxlength: [100, 'Maximum 100 caractères']
     },
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+    },
     email: {
       type: String,
       trim: true,

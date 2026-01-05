@@ -103,7 +103,7 @@ const deleteArticle = catchAsync(async (req, res, next) => {
         return next(new AppError("You are not authorized to delete this article", 403));
     }
 
-    await article.remove();
+    await article.deleteOne();
 
     res.status(200).json({
         success: true,

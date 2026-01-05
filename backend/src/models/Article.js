@@ -34,7 +34,7 @@ const articleSchema = new mongoose.Schema(
             type: String,
             trim: true,
             enum: {                    // Liste de valeurs autorisées
-                values: ['Technologie', 'Lifestyle', 'Voyage', 'Cuisine', 'Autre'],
+                values: ['Apéros', 'Entrées', 'Plats', 'Desserts', 'Astuces'],
                 message: '{VALUE} n\'est pas une catégorie valide'
             },
             default: 'Autre'

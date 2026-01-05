@@ -5,7 +5,12 @@ export const CardContainer = styled.div`
     padding: 0;
     margin: 16px;
     width: 450px;
-    heigth: 545px;
+    height: 745px;
+    min-height: 745px;
+    max-height: 745px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 
 

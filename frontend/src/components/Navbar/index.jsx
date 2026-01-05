@@ -13,6 +13,8 @@ import ProfileIcon from "../Icons/ProfileIcon.jsx";
 import SearchIcon from "../Icons/SearchIcon.jsx";
 
 const Navbar = () => {
+  const { token, user, logout } = useAuth();
+
   const navItems = [
     { label: "Home", path: "/" || "/home" },
     { label: "About", path: "/about" },
@@ -20,7 +22,10 @@ const Navbar = () => {
     { label: "Publier", path: "/publish" },
   ];
 
-  const { token, user, logout } = useAuth();
+  const visibleNavItems = navItems.filter((item) => {
+    if (item.path === "/publish" && !token) return false;
+    return true;
+  });
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -37,7 +42,7 @@ const Navbar = () => {
       </div>
       <LeftSideNav>
         <NavItems>
-          {navItems.map((item) => (
+          {visibleNavItems.map((item) => (
             <Link key={item.path} to={item.path} className="nav-link">
               {item.label}
             </Link>

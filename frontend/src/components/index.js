@@ -6,5 +6,7 @@ import Dropdown from "./Dropdown";
 import Textarea from "./Textarea";
 import SkeletonCard from "./Skeleton/SkeletonCard";
 import ArticleContent from "./ArticleContent";
+import Tag from "./Tag";
+import Select from "./Select";
 
-export { Navbar, Button, Card, Input, Dropdown, Textarea, SkeletonCard, ArticleContent };
+export { Navbar, Button, Card, Input, Dropdown, Textarea, SkeletonCard, ArticleContent, Tag, Select };

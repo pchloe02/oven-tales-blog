@@ -46,6 +46,20 @@ const Profile = () => {
         </div>
       ) : (
         (() => {
+          if (!Array.isArray(myArticles) || myArticles.length === 0) {
+            return (
+              <div
+                style={{
+                  minHeight: 745,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <p>Aucune publication</p>
+              </div>
+            );
+          }
           return (
             <>
               <Card

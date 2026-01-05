@@ -11,6 +11,7 @@ import {
   CreateArticle,
 } from "./pages";
 import ArticleDetail from "./pages/recipes/id";
+import EditArticlePage from "./pages/recipes/id/edit";
 import { Navbar } from "./components";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/recipes/:id" element={<ArticleDetail />} />
+        <Route path="/recipes/:id/edit" element={<EditArticlePage />} />
         <Route path="*" cta element={<Navigate to="/" replace />} />
       </Routes>
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import { Input, Textarea, Button, ArticleContent } from "./index.js";
+import { Input, Textarea, Button, ArticleContent, Select } from "./index.js";
 import { useNavigate } from "react-router-dom";
 import useCreateArticle from "../hooks/useCreateArticle";
 
@@ -87,11 +87,18 @@ export default function CreateArticle() {
           {preview ? (
             <ArticleContent content={categorie || ""} />
           ) : (
-            <Input
+            <Select
               value={categorie}
               onChange={(e) => setCategorie(e.target.value)}
               style={inputStyle}
-            />
+            >
+              <option value="">-- Choisir --</option>
+              <option value="Apéros">Apéros</option>
+              <option value="Entrées">Entrées</option>
+              <option value="Plats">Plats</option>
+              <option value="Desserts">Desserts</option>
+              <option value="Astuces">Astuces</option>
+            </Select>
           )}
         </div>
 

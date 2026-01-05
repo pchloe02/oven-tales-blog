@@ -1,8 +1,12 @@
 import React, { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useArticles } from "../../../hooks/useArticles.jsx";
 import imgPlaceholder from "../../../assets/placeholder-img.jpg";
-import { ArticleContent } from "../../../components/index.js";
+import { ArticleContent, Dropdown } from "../../../components/index.js";
+import SettingIcon from "../../../components/Icons/SettingIcon";
+import UseDeleteArticle from "../../../hooks/UseDeleteArticle.jsx";
+import { useAuth } from "../../../context/AuthContext.jsx";
+import { colors } from "../../../utils/theme.js";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -12,6 +16,18 @@ const ArticleDetail = () => {
     if (!Array.isArray(articles)) return null;
     return articles.find((a) => (a._id || a.id) === id);
   }, [articles, id]);
+
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { deleteArticle, loading: deleting } = UseDeleteArticle();
+
+  const isOwner =
+    !!user &&
+    !!article &&
+    ((article.auteur &&
+      (article.auteur._id === user._id || article.auteur === user._id)) ||
+      (article.auteurId && article.auteurId === user._id) ||
+      article.auteur === user._id);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -23,8 +39,42 @@ const ArticleDetail = () => {
   return (
     <div style={{ padding: 20, marginTop: 40 }}>
       <h1>{article.titre}</h1>
-      <p>
-        <strong>By:</strong> {article.auteur?.name}
+      <p
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <span>
+          <strong>By:</strong> {article.auteur?.name}
+        </span>
+        {isOwner && (
+          <Dropdown
+            label={<SettingIcon color={colors.borderDarker} />}
+            items={[
+              {
+                label: "Modifier",
+                action: () =>
+                  navigate(`/recipes/${article._id || article.id}/edit`),
+              },
+              {
+                label: "Supprimer",
+                action: () => {
+                  if (!window.confirm("Delete this article?")) return;
+                  deleteArticle(article._id || article.id)
+                    .then(() => navigate("/profile"))
+                    .catch((err) => {
+                      const msg =
+                        err?.response?.data?.message ||
+                        err.message ||
+                        "Failed to delete";
+                      alert(msg);
+                    });
+                },
+              },
+            ]}
+          />
+        )}
       </p>
 
       <img

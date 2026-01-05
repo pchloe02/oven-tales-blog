@@ -9,6 +9,7 @@ import {
   InfoContainer,
   Date,
 } from "./styled";
+import { Tag } from "../index.js";
 import { mockRecettes } from "../../utils/mock.js";
 import SkeletonCard from "../Skeleton/SkeletonCard";
 
@@ -39,10 +40,27 @@ const Card = ({ articles, loading, error }) => {
           <img src={article.image || imgPlaceholder} />
         </ImgFrame>
         <InfoContainer>
-          <Date>{formatDate(article.createdAt)}</Date>
-          <p>{article.auteur?.name}</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2>{article.titre}</h2>
+            <Tag children={article.categorie} />
+          </div>
           <p>{article.resume}</p>
-          <h2>{article.titre}</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Date>{formatDate(article.createdAt)}</Date>
+            <p>{article.auteur?.name}</p>
+          </div>
         </InfoContainer>
       </CardContainer>
     ));

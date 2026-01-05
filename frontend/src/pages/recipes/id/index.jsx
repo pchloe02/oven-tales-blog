@@ -7,6 +7,10 @@ import SettingIcon from "../../../components/Icons/SettingIcon";
 import UseDeleteArticle from "../../../hooks/UseDeleteArticle.jsx";
 import { useAuth } from "../../../context/AuthContext.jsx";
 import { colors } from "../../../utils/theme.js";
+import { CommentsList, Tag } from "../../../components";
+import CommentForm from "../../../components/CommentForm";
+import useGetComments from "../../../hooks/useGetComments.jsx";
+import useCreateComment from "../../../hooks/useCreateComment.jsx";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -19,6 +23,7 @@ const ArticleDetail = () => {
 
   const navigate = useNavigate();
   const { user } = useAuth();
+  const auth = useAuth();
   const { deleteArticle, loading: deleting } = UseDeleteArticle();
 
   const isOwner =
@@ -28,6 +33,14 @@ const ArticleDetail = () => {
       (article.auteur._id === user._id || article.auteur === user._id)) ||
       (article.auteurId && article.auteurId === user._id) ||
       article.auteur === user._id);
+  const articleId = article?._id || article?.id;
+  const {
+    comments,
+    loading: commentsLoading,
+    error: commentsError,
+    refetch: refetchComments,
+  } = useGetComments(articleId);
+  const { createComment } = useCreateComment();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -38,42 +51,23 @@ const ArticleDetail = () => {
 
   return (
     <div style={{ padding: 20, marginTop: 40 }}>
-      <h1>{article.titre}</h1>
+      <h1 style={{ marginBottom: "2px" }}>{article.titre}</h1>
       <p
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
+          justifyContent: "space-evenly",
+          marginTop: 0,
         }}
       >
         <span>
-          <strong>By:</strong> {article.auteur?.name}
+          Publié par {article.auteur?.name} le{" "}
+          {new Date(article.createdAt).toLocaleDateString()}
         </span>
-        {isOwner && (
-          <Dropdown
-            label={<SettingIcon color={colors.borderDarker} />}
-            items={[
-              {
-                label: "Modifier",
-                action: () =>
-                  navigate(`/recipes/${article._id || article.id}/edit`),
-              },
-              {
-                label: "Supprimer",
-                action: () => {
-                  if (!window.confirm("Delete this article?")) return;
-                  deleteArticle(article._id || article.id)
-                    .then(() => navigate("/profile"))
-                    .catch((err) => {
-                      const msg =
-                        err?.response?.data?.message ||
-                        err.message ||
-                        "Failed to delete";
-                      alert(msg);
-                    });
-                },
-              },
-            ]}
-          />
+        {(article.categorie || article.category) && (
+          <Tag>{article.categorie || article.category}</Tag>
         )}
       </p>
 
@@ -108,6 +102,47 @@ const ArticleDetail = () => {
           <p>No full content available.</p>
         )}
       </div>
+
+      {auth.user && (
+        <div style={{ marginTop: 24 }}>
+          <h2>Commentaires</h2>
+          {auth.loading ? (
+            <p>Chargement...</p>
+          ) : (
+            <>
+              <CommentForm
+                onCreate={async (payload) => {
+                  const body = {
+                    contenu: payload.contenu,
+                    auteur:
+                      auth.user.name ||
+                      auth.user.username ||
+                      auth.user.email ||
+                      "",
+                    email: auth.user.email || "",
+                  };
+                  await createComment(article._id || article.id, body);
+                  await refetchComments();
+                }}
+              />
+
+              {commentsLoading ? (
+                <p>Chargement des commentaires...</p>
+              ) : (
+                <CommentsList
+                  comments={comments}
+                  onDeleted={async () => {
+                    await refetchComments();
+                  }}
+                  onEdited={async () => {
+                    await refetchComments();
+                  }}
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

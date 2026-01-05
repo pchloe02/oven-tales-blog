@@ -1,14 +1,14 @@
 import styled from "styled-components";
+import { colors } from "../../utils/theme";
 
-const TagContainer = styled.span`
-    height: 24px;
-    width: auto;
-    padding: 0 12px;
-  display: inline-block;   
-  background-color: #6e2727ff;
-  color: #ffffff;
-  border: 1px solid #6e2727ff;
-    border-radius: 12px;
-  `
+export const TagContainer = styled.span`
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: ${colors.accent};
+  color: ${colors.white};
+  font-size: 0.85rem;
+  margin-left: 8px;
+`;
 
-export { TagContainer };
+export default TagContainer;

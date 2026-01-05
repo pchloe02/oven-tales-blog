@@ -2,11 +2,9 @@ import React, { useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useArticles } from "../../../hooks/useArticles.jsx";
 import imgPlaceholder from "../../../assets/placeholder-img.jpg";
-import { ArticleContent, Dropdown } from "../../../components/index.js";
-import SettingIcon from "../../../components/Icons/SettingIcon";
+import { ArticleContent } from "../../../components/index.js";
 import UseDeleteArticle from "../../../hooks/UseDeleteArticle.jsx";
 import { useAuth } from "../../../context/AuthContext.jsx";
-import { colors } from "../../../utils/theme.js";
 import { CommentsList, Tag } from "../../../components";
 import CommentForm from "../../../components/CommentForm";
 import useGetComments from "../../../hooks/useGetComments.jsx";
@@ -70,13 +68,6 @@ const ArticleDetail = () => {
           <Tag>{article.categorie || article.category}</Tag>
         )}
       </p>
-
-      <img
-        src={article.image || imgPlaceholder}
-        alt={article.titre}
-        style={{ maxWidth: "100%", height: "auto", margin: "16px 0" }}
-      />
-
       <div>
         {article.contenu ? (
           typeof article.contenu === "string" ? (

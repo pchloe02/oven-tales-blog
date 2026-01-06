@@ -4,10 +4,6 @@
 
 Oven Tales est une application de blog communautaire (backend + frontend) dédiée au partage de recettes de cuisine. Chaque utilisateur peut créer, éditer et partager ses recettes, commenter et interagir avec la communauté.
 
-## Thème du blog
-
-Blog de recettes communautaire — partage libre de fiches recettes, photos et commentaires.
-
 ## Stack technique
 
 - Backend : Node.js, Express, Mongoose
@@ -103,6 +99,48 @@ npm run dev
 ```
 
 Par défaut Vite démarre sur `http://localhost:5173` (ou autre port indiqué par Vite).
+
+## Seeder
+
+But: utilitaire pour peupler la base de données locale avec des `users`, `articles` et `comments` réalistes pour le développement et les tests.
+
+Fichier: backend/src/utils/seeder.js
+
+Variables d'environnement:
+
+- MONGODB_URI: URI de connexion MongoDB utilisée par le backend (ex: mongodb://localhost:27017/ecv_db). Assurez-vous que cette variable est définie dans backend/.env.
+
+Commandes:
+
+```bash
+# depuis le dossier racine du projet
+cd backend
+
+# Supprime toutes les données (users, articles, comments)
+npm run seed:destroy
+
+# Importe les données de seed
+npm run seed
+
+# OU tout enchaîner
+npm run seed:destroy && npm run seed
+```
+
+Ce que le seeder crée:
+
+- 3 utilisateurs (Alice, Bob, Clara)
+- 27 articles (générés pour tester la pagination à 9 articles par page)
+- 1 à 3 commentaires par article, chacun lié à un article et à un user
+
+Dates: Les champs createdAt/updatedAt des articles et commentaires sont générés de façon réaliste mais plafonnés au 01/01/2026.
+
+Vous pourrez vous connecter en utilisant les identifiants suivants :
+
+```
+{ name: 'Alice Admin', email: 'alice@example.com', password: 'password123', role: 'admin' },
+{ name: 'Bob Contributor', email: 'bob@example.com', password: 'password123' },
+{ name: 'Clara Reader', email: 'clara@example.com', password: 'password123' }
+```
 
 ## Structure du projet
 

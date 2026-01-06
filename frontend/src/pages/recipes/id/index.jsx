@@ -2,7 +2,9 @@ import React, { useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useArticles } from "../../../hooks/useArticles.jsx";
 import imgPlaceholder from "../../../assets/placeholder-img.jpg";
-import { ArticleContent } from "../../../components/index.js";
+import { ArticleContent, Dropdown } from "../../../components/index.js";
+import SettingIcon from "../../../components/Icons/SettingIcon.jsx";
+import { colors } from "../../../utils/theme.js";
 import UseDeleteArticle from "../../../hooks/UseDeleteArticle.jsx";
 import { useAuth } from "../../../context/AuthContext.jsx";
 import { CommentsList, Tag } from "../../../components";
@@ -49,7 +51,30 @@ const ArticleDetail = () => {
 
   return (
     <div style={{ padding: 20, marginTop: 40 }}>
-      <h1 style={{ marginBottom: "2px" }}>{article.titre}</h1>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <h1 style={{ marginBottom: "2px", marginRight: 8, flex: 1 }}>
+          {article.titre}
+        </h1>
+        {isOwner && (
+          <Dropdown
+            style={{ marginTop: "20px" }}
+            label={<SettingIcon color={colors.borderDarker} />}
+            items={[
+              {
+                label: "Modifier",
+                action: () => navigate(`/recipes/${articleId}/edit`),
+              },
+              {
+                label: deleting ? "Suppression..." : "Supprimer",
+                action: () => {
+                  if (!confirm("Supprimer cet article ?")) return;
+                  deleteArticle(articleId).then(() => navigate("/recipes"));
+                },
+              },
+            ]}
+          />
+        )}
+      </div>
       <p
         style={{
           display: "flex",

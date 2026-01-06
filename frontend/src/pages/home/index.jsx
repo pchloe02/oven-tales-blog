@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <HomeContainer>
       <Banner bg={bannerImg} />
-      <h2>Dernière recette publiée</h2>
+      <h2>Dernières recettes publiées</h2>
       <Card articles={latestArticles} loading={loading} error={error} />
     </HomeContainer>
   );

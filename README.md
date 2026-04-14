@@ -11,6 +11,7 @@ Oven Tales est une application de blog communautaire (backend + frontend) dédi�
 - Frontend : React (Vite)
 - Auth : JWT
 - Outils : Docker (option pour MongoDB), npm
+- Gestion d'image : Cloudinary
 
 ## Prérequis
 

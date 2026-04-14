@@ -9,7 +9,14 @@ export default function useCreateArticle() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post("/api/articles", payload);
+      // Envoyer directement titre, contenu, categorie et imageUrl (URL Cloudinary)
+      const res = await axios.post("/api/articles", {
+        titre: payload.titre,
+        contenu: payload.contenu,
+        categorie: payload.categorie,
+        ...(payload.imageUrl && { imageUrl: payload.imageUrl }),
+      });
+
       return res.data;
     } catch (err) {
       const message = err?.response?.data?.message || err.message || "Erreur";

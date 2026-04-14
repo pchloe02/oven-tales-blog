@@ -10,7 +10,13 @@ export default function useEditArticle() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.patch(`/api/articles/${id}`, payload);
+      // Envoyer directement les données (imageUrl est l'URL Cloudinary)
+      const res = await axios.patch(`/api/articles/${id}`, {
+        titre: payload.titre,
+        contenu: payload.contenu,
+        categorie: payload.categorie,
+        ...(payload.imageUrl && { imageUrl: payload.imageUrl }),
+      });
       setLoading(false);
       return res.data;
     } catch (err) {

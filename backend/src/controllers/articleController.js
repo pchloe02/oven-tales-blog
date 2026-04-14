@@ -4,17 +4,25 @@ import AppError from '../utils/AppError.js';
 import { catchAsync } from '../middleware/errorHandler.js';
 
 
-
 const createArticle = catchAsync(async (req, res, next) => {
-    const { titre, contenu, categorie } = req.body;
-    const article = new Article({
+    const { titre, contenu, categorie, imageUrl } = req.body;
+
+    const articleData = {
         titre,
         contenu,
         auteur: req.user._id,
         categorie
-    });
+    };
 
+    if (imageUrl) {
+        articleData.image = {
+            url: imageUrl
+        };
+    }
+
+    const article = new Article(articleData);
     const articleSaved = await article.save();
+
     res.status(201).json({
         success: true,
         message: 'Article created successfully',
@@ -82,6 +90,12 @@ const updateArticle = catchAsync(async (req, res, next) => {
             article[field] = req.body[field];
         }
     });
+
+    if (req.body.imageUrl) {
+        article.image = {
+            url: req.body.imageUrl
+        };
+    }
 
     const updated = await article.save();
 

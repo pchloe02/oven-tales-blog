@@ -9,7 +9,7 @@ export const CardContainer = styled.div`
     flex-direction: column;
     overflow: hidden;
     min-height: 320px;
-    max-height: 320px;
+    max-height: 420px;
     background: transparent;
     border: 1px solid var(--color-border);
     border-radius: 16px;

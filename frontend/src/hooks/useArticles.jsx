@@ -23,7 +23,6 @@ export const useArticles = () => {
         });
       })
       .catch((err) => {
-        console.error("Axios Error:", err);
         setError(err.message);
         setLoading(false);
       });

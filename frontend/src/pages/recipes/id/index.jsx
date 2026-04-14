@@ -18,7 +18,8 @@ const ArticleDetail = () => {
 
   const article = useMemo(() => {
     if (!Array.isArray(articles)) return null;
-    return articles.find((a) => (a._id || a.id) === id);
+    const found = articles.find((a) => (a._id || a.id) === id);
+    return found;
   }, [articles, id]);
 
   const navigate = useNavigate();
@@ -75,6 +76,30 @@ const ArticleDetail = () => {
           />
         )}
       </div>
+
+      {article.image?.url && (
+        <div
+          style={{
+            marginTop: 20,
+            marginBottom: 20,
+            borderRadius: "8px",
+            overflow: "hidden",
+            maxWidth: "600px",
+            margin: "20px auto",
+          }}
+        >
+          <img
+            src={article.image.url}
+            alt={article.titre}
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
+
       <p
         style={{
           display: "flex",

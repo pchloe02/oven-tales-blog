@@ -29,38 +29,77 @@ const Card = ({ articles, loading, error }) => {
 
   const mapArticles = () => {
     if (!Array.isArray(articles)) return null;
-    return articles.map((article) => (
-      <CardContainer
-        key={article._id || article.id}
-        onClick={() => navigate(`/recipes/${article._id || article.id}`)}
-        role="link"
-        tabIndex={0}
-      >
-        <InfoContainer>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <h2>{article.titre}</h2>
-            <Tag children={article.categorie} />
-          </div>
-          <p>{article.resume}</p>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Date>{formatDate(article.createdAt)}</Date>
-            <p>{article.auteur?.name}</p>
-          </div>
-        </InfoContainer>
-      </CardContainer>
-    ));
+    return articles.map((article) => {
+      return (
+        <CardContainer
+          key={article._id || article.id}
+          onClick={() => navigate(`/recipes/${article._id || article.id}`)}
+          role="link"
+          tabIndex={0}
+        >
+          {article.image?.url && (
+            <div
+              style={{
+                height: "150px",
+                marginTop: "-20px",
+                marginLeft: "-20px",
+                marginRight: "-20px",
+                marginBottom: "12px",
+                borderRadius: "16px 16px 0 0",
+              }}
+            >
+              <img
+                src={article.image.url}
+                alt={article.titre}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            </div>
+          )}
+          {!article.image?.url && (
+            <div
+              style={{
+                fontSize: "12px",
+                color: "#999",
+                marginBottom: "8px",
+              }}
+            >
+              No image
+            </div>
+          )}
+          <InfoContainer>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h2>{article.titre}</h2>
+              <Tag children={article.categorie} />
+            </div>
+            <p>{article.resume}</p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Date>{formatDate(article.createdAt)}</Date>
+              <p>{article.auteur?.name}</p>
+            </div>
+          </InfoContainer>
+        </CardContainer>
+      );
+    });
   };
 
   return (

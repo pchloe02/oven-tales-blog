@@ -40,6 +40,12 @@ const articleSchema = new mongoose.Schema(
             default: 'Autre'
         },
 
+        // Image de la recette
+        image: {
+            url: String,              // URL sécurisée de l'image sur Cloudinary
+            public_id: String         // ID public pour pouvoir supprimer l'image
+        },
+
         // Nombre de vues (pour les statistiques)
         vues: {
             type: Number,
